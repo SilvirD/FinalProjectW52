@@ -20,7 +20,6 @@ class User {
   }
 
   async getUserById({ userId }) {
-    console.log("userId_dnd", userId);
     const result = await UserEntity.findOne({ _id: userId });
     return {
       data: result,
@@ -50,7 +49,7 @@ class User {
         status: 200,
       };
     } catch (err) {
-      console.log("err createNewUser", err);
+      console.log("err update user", err);
       throw err;
     }
   }
@@ -62,7 +61,7 @@ class User {
         status: 200,
       };
     } catch (err) {
-      console.log("err createNewUser", err);
+      console.log("err delete user", err);
       throw err;
     }
   }

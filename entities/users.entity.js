@@ -3,25 +3,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const users = new Schema({
-  user_ID: {
-      type: String,
-  },
   username: {
     type: String,
-    // required: true
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    // required: true
+    required: true,
   },
   password: {
     type: String,
+    required: true,
   },
-  tables_ID: {
+  table_IDs: {
     type: Array,
   },
-  workspace_ID: {
+  workspace_IDs: {
     type: Array,
   },
 });
