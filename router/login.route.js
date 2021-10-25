@@ -17,10 +17,10 @@ loginRouter.post("/", async (req, res) => {
   }
 });
 
-// getuserbyID
+// login by token
 loginRouter.get("/userID", async (req, res) => {
   try {
-    res.send("token oke");
+    res.send({ userID: req.userId });
   } catch (err) {
     res.status(500).json({
       msg: "err",

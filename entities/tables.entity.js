@@ -6,6 +6,7 @@ const tables = new Schema({
   table_name: {
     type: String,
     required: true,
+    unique: true,
   },
   star: {
     type: Boolean,

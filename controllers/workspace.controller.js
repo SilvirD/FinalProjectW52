@@ -39,9 +39,9 @@ const getAllWorkspace = async ({ data }) => {
   }
 };
 
-const getWorkspaceById = async ({ data }) => {
+const getWorkspaceById = async ({ workspaceID }) => {
   try {
-    let result = await modelWorkspace.getWorkspaceById({ data });
+    let result = await modelWorkspace.getWorkspaceById({ workspaceID });
     if (!result)
       res
         .status(402)
@@ -60,4 +60,52 @@ const getWorkspaceById = async ({ data }) => {
   }
 };
 
-module.exports = { createWorkspace, getAllWorkspace, getWorkspaceById };
+const getWorkspaceByUserId = async ({ userID }) => {
+  try {
+    let result = await modelWorkspace.getWorkspaceByUserId({ userID });
+    if (!result)
+      res
+        .status(402)
+        .json(
+          errorMessage([
+            "something wrong when get workspace by user ID in controller",
+          ])
+        );
+    else {
+      return result;
+    }
+  } catch (err) {
+    res
+      .status(402)
+      .json(errorMessage(["err in get workspace by user ID in controller", err]));
+  }
+};
+
+
+const deleteWorkspace = async ({ workspaceID }) => {
+  try {
+    let result = await modelWorkspace.deleteWorkspace({ workspaceID });
+    if (!result)
+      res
+        .status(402)
+        .json(
+          errorMessage([
+            "something wrong when delete workspace by ID in controller",
+          ])
+        );
+    else {
+      return result;
+    }
+  } catch (err) {
+    res
+      .status(402)
+      .json(errorMessage(["err in delete workspace by ID in controller", err]));
+  }
+};
+module.exports = {
+  createWorkspace,
+  getAllWorkspace,
+  getWorkspaceById,
+  getWorkspaceByUserId,
+  deleteWorkspace,
+};

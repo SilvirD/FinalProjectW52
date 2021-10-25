@@ -2,6 +2,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const Workspace = require("./workspace.entity");
+
 const users = new Schema({
   username: {
     type: String,
@@ -16,15 +18,13 @@ const users = new Schema({
     type: String,
     required: true,
   },
-  table_IDs: {
-    type: Array,
-  },
-  workspace_IDs: {
-    type: Array,
-  },
+  workspace_IDs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Workspace",
+    },
+  ],
 });
-
-// users.index({email: 2}, {unique: true})
 
 const Users = mongoose.model("Users", users);
 

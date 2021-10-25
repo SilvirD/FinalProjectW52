@@ -2,18 +2,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const Users = require("./users.entity");
+
 const workspace = new Schema({
   workspace_name: {
     type: String,
     required: true,
   },
-  table_IDs: {
-    type: Array,
-    // required: true
-  },
   users_in_ws: [
     {
-      user_ID: { type: String, required: true },
+      user_ID: { type: Schema.Types.ObjectId, ref: "Users" },
       user_permission: { type: String, required: true },
     },
   ],

@@ -14,6 +14,7 @@ userRouter.get("/", async (req, res) => {
 // get user By id
 userRouter.get("/:userId", async (req, res) => {
   const { userId } = req.params;
+  // console.log(userId);
   const { status, data } = await Controller.User.getUserById({ userId });
   res.status(status).json(data);
 });
@@ -25,7 +26,7 @@ userRouter.post("/addUser", async (req, res) => {
     newUser._id = uuidv4();
     const result = await Controller.User.createUser(newUser);
     res.json(result);
-    console.log(result);
+    // console.log(result);
   } catch (err) {
     res.status(500).json({
       msg: "errors server",
@@ -34,12 +35,12 @@ userRouter.post("/addUser", async (req, res) => {
 });
 
 // update info user by ID
-userRouter.patch("/:userId", async (req, res) => {
+userRouter.patch("/update/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const newData = req.body;
     const result = await Controller.User.editUser({ userId, data: newData });
-    console.log("result", result, req.body);
+    // console.log("result", result, req.body);
     res.json(result);
   } catch (err) {
     res.status(500).json({
@@ -47,13 +48,28 @@ userRouter.patch("/:userId", async (req, res) => {
     });
   }
 });
-
+// update WS_IDs user by ID
+userRouter.patch("/updateWS_IDs/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const newData = req.body;
+    const result = await Controller.User.updateWS_IDs({
+      userId,
+      data: newData,
+    });
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({
+      msg: "errors server",
+    });
+  }
+});
 // delete user by ID
-userRouter.delete("/:userId", async (req, res) => {
+userRouter.delete("/delete/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const result = await Controller.User.deleteUser({ userId });
-    console.log("result", result, req.body);
+    // console.log("result", result, req.body);
     res.json(result);
   } catch (err) {
     res.status(500).json({

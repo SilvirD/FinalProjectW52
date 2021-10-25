@@ -18,7 +18,8 @@ workspaceRouter.post("/addWorkspace", async (req, res) => {
   }
 });
 
-workspaceRouter.get("/home", async (req, res, { name }) => {
+// get all workspace
+workspaceRouter.get("/", async (req, res, { name }) => {
   try {
     const result = await Controller.Workspace.getAllWorkspace({ name });
     res.json(result);
@@ -29,8 +30,8 @@ workspaceRouter.get("/home", async (req, res, { name }) => {
   }
 });
 
-// get user By id
-workspaceRouter.get("/home/:workspaceID", async (req, res) => {
+// get workspace By workspace_ID
+workspaceRouter.get("/:workspaceID", async (req, res) => {
   const { workspaceID } = req.params;
   const { status, data } = await Controller.Workspace.getWorkspaceById({
     workspaceID,
@@ -38,4 +39,26 @@ workspaceRouter.get("/home/:workspaceID", async (req, res) => {
   res.status(status).json(data);
 });
 
+// get workspace by user_ID
+workspaceRouter.get("/user/:userID", async (req, res) => {
+  const { userID } = req.params;
+  const { status, data } = await Controller.Workspace.getWorkspaceByUserId({
+    userID,
+  });
+  res.status(status).json(data);
+});
+
+// delete workspace
+workspaceRouter.delete("/delete/:workspaceID", async (req, res, { name }) => {
+  try {
+    const { workspaceID } = req.params;
+    const result = await Controller.Workspace.deleteWorkspace({ workspaceID });
+    console.log("result", result, req.body);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({
+      msg: "errors server",
+    });
+  }
+});
 module.exports = workspaceRouter;
